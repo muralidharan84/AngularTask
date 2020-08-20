@@ -1,0 +1,140 @@
+<form class="form-horizontal"  [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Create Recipe</h3>
+      </div>
+      <div class="panel-body">
+        <div class="form-group"  [ngClass]="{'has-error': formErrors.title}">
+          <label class="col-sm-2 control-label" for="Title">Recipe Title</label>
+          <div class="col-sm-8">
+            <input id="title" type="text" class="form-control" formControlName="title">
+            <span class="help-block" *ngIf="formErrors.title">
+                {{formErrors.title}}
+              </span>
+          </div>
+        </div>
+
+        <div formArrayName="images"  *ngFor="let step of getControls('images'); let i = index">
+            <div formGroupName="i">
+                <div class="form-group" [ngClass]="{'has-error': formErrors.imgName}">
+                  <label class="col-sm-2 control-label" for="imgName">
+                    Image Name
+                  </label>
+                  <div class="col-sm-4">
+                    <input type="text" class="form-control" id="imgName" formControlName="imgName"
+                           placeholder="Image Name">
+                    <span class="help-block" *ngIf="formErrors.imgName">
+                      {{formErrors.imgName}}
+                    </span>
+                  </div>
+                  <div class="form-group" [ngClass]="{'has-error': formErrors.imgUrl}">
+                    <label class="col-sm-2 control-label imgProp" for="imgUrl">
+                        imgUrl
+                    </label>
+                    <div class="col-sm-4">
+                      <input type="text" class="form-control" id="imgUrl"
+                             formControlName="imgUrl" placeholder="imgUrl"
+                            >
+                      <span class="help-block" *ngIf="formErrors.imgUrl">
+                        {{formErrors.imgUrl}}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-4">
+              <button type="button" class="btn btn-primary" (click)="addSteps()">
+                Add Steps
+              </button>
+            </div>
+           
+          </div>
+        <div formArrayName="steps" *ngFor="let step of getControls('steps'); let i = index">
+        <div formGroupName="i">
+
+            <div class="form-group" [ngClass]="{'has-error': formErrors.stepName}">
+              <label class="col-sm-2 control-label" for="stepName">
+                Step Name
+              </label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" id="{{'stepName'+i}}" formControlName="stepName"
+                        placeholder="Step 1,2 etc">
+                <span class="help-block" *ngIf="formErrors.stepName">
+                  {{formErrors.stepName}}
+                </span>
+              </div>
+              <div class="form-group" [ngClass]="{'has-error': formErrors.details}">
+                <label class="col-sm-2 control-label" for="details">
+                    Description
+                </label>
+                <div class="col-sm-4">
+                  <input type="text" class="form-control" id="details"
+                         formControlName="details" placeholder="Description"
+                       >
+                  <span class="help-block" *ngIf="formErrors.details">
+                    {{formErrors.details}}
+                  </span>
+                </div>
+                <div class="col-md-offset-2 col-md-4" *ngif="i>1">
+                    <button type="button" class="btn btn-primary" (click)="removeSteps(i)">
+                      Remove Steps
+                    </button>
+                  </div>
+              </div>
+            </div>
+        </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-4">
+              <button type="button" class="btn btn-primary" (click)="addIngredient()">
+                Add Ingredient
+              </button>
+            </div>
+          </div>
+        <div formArrayName="ingredient" *ngFor="let ingredient of getControls('ingredient'); let i = index">
+        <div formGroupName="i">
+
+            <div class="form-group" [ngClass]="{'has-error': formErrors.ingName}">
+              <label class="col-sm-2 control-label" for="ingName">
+                Ingredient Name
+              </label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" id="{{'ingName'+i}}" formControlName="ingName"
+                       placeholder="Ingredient Name">
+                <span class="help-block" *ngIf="formErrors.ingName">
+                  {{formErrors.ingName}}
+                </span>
+              </div>
+              <div class="form-group" [ngClass]="{'has-error': formErrors.quantity}">
+                <label class="col-sm-2 control-label" for="quantity">
+                    Quantity
+                </label>
+                <div class="col-sm-4">
+                  <input type="text" class="form-control" id="quantity"
+                         formControlName="quantity" placeholder="Quantity"
+                        >
+                  <span class="help-block" *ngIf="formErrors.quantity">
+                    {{formErrors.quantity}}
+                  </span>
+                </div>
+                <div class="form-group"  *ngif="i>1">
+                    <div class="col-md-offset-2 col-md-4">
+                      <button type="button" class="btn btn-primary" (click)="removeIngredient(i)">
+                        Add Ingredient
+                      </button>
+                    </div>
+                  </div>
+              </div>
+            </div>
+        </div>
+        </div>
+      
+
+      </div>
+      <div class="panel-footer">
+        <button class="btn btn-primary" type="submit">Save</button>
+      </div>
+    </div>
+  </form>

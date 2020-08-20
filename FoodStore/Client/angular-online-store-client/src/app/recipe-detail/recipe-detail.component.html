@@ -1,0 +1,39 @@
+  <div class="row" #studentForm="ngForm">
+    <div class="table-responsive col-md-10">
+       <div class="row">
+        <div class="col-md-8" *ngFor="let img of recipe.Images;let i = index">
+            <div *ngIf="i==1" class="col-md-4">
+                <div class="col-md-8" *ngFor="let ingredient of recipe.Ingredients;let j = index">
+                   <span>{{ingredient.Name}} | {{ingredient.Quantity}}</span> <br>
+                 </div>
+            </div>
+            <img [src]='img.url'/>
+            <div *ngIf="i==0" class="col-md-4">
+                <span>{{recipe.Title}}</span>
+            </div>
+            <div *ngIf="i==2" class="col-md-4">
+                <div class="col-md-8" *ngFor="let step of recipe.Steps;let j = index">
+                    <span>{{step.Name}} | {{step.Details}}</span> <br>
+                  </div>
+            </div>
+        </div>
+        <div>
+            {{recipe.Id}}
+        </div>
+       
+       </div>
+
+      <div class=" col-md-2">
+          <div class="row">
+              <div class="form-control">
+                <button class="btn btn-primary" (click)="editButtonClick(recipe,'edit')">Edit</button> 
+              </div>
+              <div class="form-control">
+                <button class="btn btn-primary" (click)="editButtonClick(recipe,'save')">Save</button> 
+              </div>
+              <div class="form-control">
+                <button class="btn btn-primary" (click)="editButtonClick(recipe,'pdf')">Export as PDF</button> 
+              </div>
+          </div>
+      </div>
+  </div>
